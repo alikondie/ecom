@@ -3,8 +3,6 @@ import './Directory.styles.scss';
 
 import MenuItem from '../menu-item/MenuItem.component';
 
-interface IProps {}
-
 interface ISections {
   id: number;
   title: string;
@@ -13,7 +11,7 @@ interface ISections {
   size?: string;
 }
 
-const Directory: React.FC<IProps> = () => {
+const Directory: React.FC = () => {
   const [sections, setSections] = useState<ISections[]>([
     {
       title: 'hats',
@@ -51,8 +49,8 @@ const Directory: React.FC<IProps> = () => {
 
   return (
     <div className="directory-menu">
-      {sections.map(({ title, imageUrl, id, size }) => (
-        <MenuItem id={id} title={title} imageUrl={imageUrl} size={size} />
+      {sections.map(({ id, ...section }) => (
+        <MenuItem key={id} {...section} />
       ))}
     </div>
   );
