@@ -12,7 +12,7 @@ interface ISections {
 }
 
 const Directory: React.FC = () => {
-  const [sections, setSections] = useState<ISections[]>([
+  const [sections] = useState<ISections[]>([
     {
       title: 'hats',
       imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
