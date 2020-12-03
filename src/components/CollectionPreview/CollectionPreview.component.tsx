@@ -2,7 +2,7 @@ import React from 'react';
 
 import './CollectionPreview.styles.scss';
 import { IItem } from '../../types';
-import CollectionItem from '../collection-item/CollectionItem.component';
+import CollectionItem from '../CollectionItem/CollectionItem.component';
 
 interface IProps {
   title: string;

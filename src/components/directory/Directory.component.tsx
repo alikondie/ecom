@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Directory.styles.scss';
 
-import MenuItem from '../menu-item/MenuItem.component';
+import MenuItem from '../MenuItem/MenuItem.component';
 
 interface ISections {
   id: number;

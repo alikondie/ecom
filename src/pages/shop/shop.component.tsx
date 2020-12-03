@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IItem } from '../../types';
 import SHOP_DATA from '../../assets/shop.data';
-import CollectionPreview from '../../components/collection-preview/CollectionPreview.component';
+import CollectionPreview from '../../components/CollectionPreview/CollectionPreview.component';
 interface ICollections {
   title: string;
   id: number;
