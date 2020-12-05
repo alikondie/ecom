@@ -23,6 +23,7 @@ const App: React.FC = () => {
             ...snapShot.data(),
           });
         });
+        console.log(currentUser);
       } else setCurrentUser(undefined);
     });
 
