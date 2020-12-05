@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import './CustomButton.styles.scss';
 
-interface IProps {
-  type: 'button' | 'submit' | 'reset' | undefined;
+interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  isGoogleSignIn?: boolean;
 }
 
-const CustomButton: React.FC<IProps> = ({ children, ...props }) => (
-  <button className="custom-button" {...props}>
+const CustomButton: React.FC<IProps> = ({
+  children,
+  isGoogleSignIn,
+  ...props
+}) => (
+  <button
+    className={`${isGoogleSignIn ? 'google-sign-in' : ''} custom-button`}
+    {...props}
+  >
     {children}
   </button>
 );
