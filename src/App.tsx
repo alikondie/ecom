@@ -5,7 +5,6 @@ import ShopPage from './pages/Shop/shop.component';
 import SignInSignup from './pages/SignInSingup/SignInSingup.component';
 import Header from './components/Header/Header.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
-
 import { IUser } from './types';
 import { useEffect, useState } from 'react';
 
