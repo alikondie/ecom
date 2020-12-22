@@ -1,29 +1,30 @@
-import { Route, Switch } from 'react-router-dom';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import HomePage from './pages/Homepage/Homepage.component';
 import ShopPage from './pages/Shop/shop.component';
 import SignInSignup from './pages/SignInSingup/SignInSingup.component';
 import Header from './components/Header/Header.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
-import { IUser } from './types';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { setCurrentUser } from './redux/User/User.actions';
+import { IRootState } from './types';
 
 const App: React.FC = () => {
-  const [currentUser, setCurrentUser] = useState<IUser | undefined>();
-
+  const dispatch = useDispatch();
+  const currentUser = useSelector(
+    (state: IRootState) => state.user.currentUser
+  );
   useEffect(() => {
     let unsubscribeFromAuth: () => void;
     unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
       if (user !== null) {
         const userRef = await createUserProfileDocument(user, undefined);
         userRef?.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
+          dispatch(setCurrentUser({ id: snapShot.id, ...snapShot.data() }));
         });
-        console.log(currentUser);
-      } else setCurrentUser(undefined);
+      } else dispatch(setCurrentUser(null));
     });
 
     return () => {
@@ -32,11 +33,14 @@ const App: React.FC = () => {
   }, []);
   return (
     <div className="App">
-      <Header currentUser={currentUser} />
+      <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
-        <Route path="/signin" component={SignInSignup} />
+        <Route
+          path="/signin"
+          render={() => (currentUser ? <Redirect to="/" /> : <SignInSignup />)}
+        />
       </Switch>
     </div>
   );

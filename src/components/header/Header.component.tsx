@@ -3,9 +3,14 @@ import { Link } from 'react-router-dom';
 import './Header.styles.scss';
 import { Logo } from '../../assets/svgs';
 import { auth } from '../../firebase/firebase.utils';
-import { IUser } from '../../types';
+import { IRootState, IUser } from '../../types';
+import { useSelector } from 'react-redux';
 
-const Header: React.FC<IUser | undefined> = ({ currentUser }) => {
+const Header: React.FC<IUser | undefined> = () => {
+  const currentUser = useSelector(
+    (state: IRootState) => state.user.currentUser
+  );
+  console.log(currentUser);
   return (
     <div className="header">
       <Link to="/">

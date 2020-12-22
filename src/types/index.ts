@@ -1,4 +1,5 @@
 import firebase from '../firebase/firebase.utils';
+import { SET_CURRENT_USER } from '../redux/Constants';
 export interface IItem {
   id: number;
   name: string;
@@ -8,6 +9,18 @@ export interface IItem {
 
 export interface IUser extends firebase.firestore.DocumentData {
   id?: string;
+}
+
+export interface ICurrentUser {
+  currentUser: IUser;
+}
+
+export type TAction = { type: 'SET_CURRENT_USER'; payload: ICurrentUser };
+
+export type TDispatch = (action: TAction) => void;
+
+export interface IRootState {
+  user: ICurrentUser;
 }
 
 // export type TAction =

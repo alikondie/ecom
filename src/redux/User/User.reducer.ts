@@ -1,4 +1,3 @@
-import { Reducer } from 'react';
 import * as constants from '../Constants';
 const initialState = {
   currentUser: null,
