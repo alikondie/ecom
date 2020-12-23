@@ -1,9 +1,10 @@
+import { TAction } from '../../types';
 import * as constants from '../Constants';
 const initialState = {
   currentUser: null,
 };
 
-const userReducer = (state = initialState, action: any) => {
+const userReducer = (state = initialState, action: TAction) => {
   switch (action.type) {
     case constants.SET_CURRENT_USER:
       return {

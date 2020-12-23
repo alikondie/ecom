@@ -15,12 +15,19 @@ export interface ICurrentUser {
   currentUser: IUser;
 }
 
-export type TAction = { type: 'SET_CURRENT_USER'; payload: ICurrentUser };
+export interface ICartDropdown {
+  hidden: boolean;
+}
+
+export type TAction =
+  | { type: 'SET_CURRENT_USER'; payload: ICurrentUser }
+  | { type: 'TOGGLE_CART_HIDDEN'; payload: ICartDropdown };
 
 export type TDispatch = (action: TAction) => void;
 
 export interface IRootState {
   user: ICurrentUser;
+  cart: ICartDropdown;
 }
 
 // export type TAction =
