@@ -18,7 +18,7 @@ export interface ICurrentUser {
 
 export interface ICart {
   hidden: boolean;
-  items: IItem[];
+  cartItems: IItem[];
 }
 
 export interface ICartItem {}
