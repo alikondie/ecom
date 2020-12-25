@@ -5,6 +5,7 @@ export interface IItem {
   name: string;
   imageUrl: string;
   price: number;
+  quantity?: number;
 }
 
 export interface IUser extends firebase.firestore.DocumentData {
@@ -15,19 +16,23 @@ export interface ICurrentUser {
   currentUser: IUser;
 }
 
-export interface ICartDropdown {
+export interface ICart {
   hidden: boolean;
+  items: IItem[];
 }
+
+export interface ICartItem {}
 
 export type TAction =
   | { type: 'SET_CURRENT_USER'; payload: ICurrentUser }
-  | { type: 'TOGGLE_CART_HIDDEN'; payload: ICartDropdown };
+  | { type: 'TOGGLE_CART_HIDDEN'; payload: ICart }
+  | { type: 'ADD_ITEM'; payload: IItem };
 
 export type TDispatch = (action: TAction) => void;
 
 export interface IRootState {
   user: ICurrentUser;
-  cart: ICartDropdown;
+  cart: ICart;
 }
 
 // export type TAction =

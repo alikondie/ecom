@@ -14,7 +14,7 @@ const Header: React.FC<IUser | undefined> = () => {
   );
 
   const isCartHidden = useSelector((state: IRootState) => state.cart.hidden);
-  console.log(currentUser);
+
   return (
     <div className="header">
       <Link to="/">
