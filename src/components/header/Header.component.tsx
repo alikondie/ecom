@@ -7,13 +7,17 @@ import { IRootState, IUser } from '../../types';
 import { useSelector } from 'react-redux';
 import CartIcon from '../CartIcon/CartIcon.component';
 import CartDropdown from '../CartDropdown/CartDropdown.component';
+import { selectCurrentUser } from '../../redux/User/User.selector';
+import { selectCartHidden } from '../../redux/Cart/Cart.selectors';
 
 const Header: React.FC<IUser | undefined> = () => {
-  const currentUser = useSelector(
-    (state: IRootState) => state.user.currentUser
+  const currentUser = useSelector((state: IRootState) =>
+    selectCurrentUser(state)
   );
 
-  const isCartHidden = useSelector((state: IRootState) => state.cart.hidden);
+  const isCartHidden = useSelector((state: IRootState) =>
+    selectCartHidden(state)
+  );
 
   return (
     <div className="header">
