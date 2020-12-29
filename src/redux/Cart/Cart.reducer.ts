@@ -1,4 +1,4 @@
-import { IItem, TAction } from '../../types';
+import { ICart, IItem, TAction } from '../../types';
 import {
   ADD_ITEM,
   CLEAR_ITEM,
@@ -7,12 +7,12 @@ import {
 } from '../Constants';
 import { addItemToCart, removeItemFromCart } from './Cart.utils';
 
-const initialState = {
+const initialState: ICart = {
   hidden: true,
   cartItems: [],
 };
 
-const cartReducer = (state = initialState, action: TAction) => {
+const cartReducer = (state = initialState, action: TAction): ICart => {
   switch (action.type) {
     case TOGGLE_CART_HIDDEN:
       return {

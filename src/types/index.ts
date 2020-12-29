@@ -13,7 +13,7 @@ export interface IUser extends firebase.firestore.DocumentData {
 }
 
 export interface ICurrentUser {
-  currentUser: IUser;
+  currentUser: IUser | null;
 }
 
 export interface ICart {
@@ -21,7 +21,17 @@ export interface ICart {
   cartItems: IItem[];
 }
 
-export interface ICartItem {}
+export interface ISection {
+  id: number;
+  title: string;
+  imageUrl: string;
+  linkUrl: string;
+  size?: string;
+}
+
+export interface IDirectory {
+  sections: ISection[];
+}
 
 export type TAction =
   | { type: 'SET_CURRENT_USER'; payload: ICurrentUser }
@@ -35,6 +45,7 @@ export type TDispatch = (action: TAction) => void;
 export interface IRootState {
   user: ICurrentUser;
   cart: ICart;
+  directory: IDirectory;
 }
 
 // export type TAction =

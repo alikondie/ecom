@@ -8,7 +8,6 @@ import './CheckoutItem.styles.scss';
 interface IProps {
   cartItem: IItem;
 }
-
 const CheckoutItem: React.FC<IProps> = ({ cartItem }) => {
   const { name, imageUrl, quantity, price } = cartItem;
   const dispatch = useDispatch();

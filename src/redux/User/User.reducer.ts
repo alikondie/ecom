@@ -1,10 +1,10 @@
-import { TAction } from '../../types';
+import { ICurrentUser, TAction } from '../../types';
 import * as constants from '../Constants';
-const initialState = {
+const initialState: ICurrentUser = {
   currentUser: null,
 };
 
-const userReducer = (state = initialState, action: TAction) => {
+const userReducer = (state = initialState, action: TAction): ICurrentUser => {
   switch (action.type) {
     case constants.SET_CURRENT_USER:
       return {

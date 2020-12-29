@@ -13,8 +13,6 @@ const CartIcon = () => {
     selectCartItemsCount(state)
   );
 
-  console.log('i am being called');
-
   const toggleCart = () => {
     dispatch(toggleCartHidden());
   };
