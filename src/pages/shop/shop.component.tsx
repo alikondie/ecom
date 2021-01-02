@@ -1,22 +1,13 @@
-import React, { useState } from 'react';
-import { IItem } from '../../types';
-import SHOP_DATA from '../../assets/shop.data';
-import CollectionPreview from '../../components/CollectionPreview/CollectionPreview.component';
-interface ICollections {
-  title: string;
-  id: number;
-  routeName?: string;
-  items: IItem[];
-}
+import React from 'react';
+import { Route, RouteComponentProps } from 'react-router-dom';
+import CollectionsOverview from '../../components/CollectionsOverview/CollectionsOverview.component';
+import CollectionPage from '../Collection/Collection.component';
 
-const ShopPage: React.FC = () => {
-  const [collections] = useState<ICollections[]>(SHOP_DATA);
-
+const ShopPage: React.FC<RouteComponentProps> = ({ match }) => {
   return (
     <div className="shop-page">
-      {collections.map(({ id, ...collection }) => (
-        <CollectionPreview key={id} {...collection} />
-      ))}
+      <Route exact path={`${match.path}`} component={CollectionsOverview} />
+      <Route path={`${match.path}/:collectionId`} component={CollectionPage} />
     </div>
   );
 };

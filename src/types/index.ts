@@ -1,3 +1,4 @@
+import { Collection } from 'typescript';
 import firebase from '../firebase/firebase.utils';
 import { SET_CURRENT_USER } from '../redux/Constants';
 export interface IItem {
@@ -29,8 +30,23 @@ export interface ISection {
   size?: string;
 }
 
+export interface ICollectionData {
+  [key: string]: ICollection;
+}
+
 export interface IDirectory {
   sections: ISection[];
+}
+
+export interface ICollection {
+  id: number;
+  title: string;
+  routeName: string;
+  items: IItem[];
+}
+
+export interface IShop {
+  collections: ICollectionData;
 }
 
 export type TAction =
@@ -46,6 +62,7 @@ export interface IRootState {
   user: ICurrentUser;
   cart: ICart;
   directory: IDirectory;
+  shop: IShop;
 }
 
 // export type TAction =
