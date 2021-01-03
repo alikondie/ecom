@@ -1,9 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import {
-  selectCollections,
-  selectioCollectionsForPreview,
-} from '../../redux/Shop/Shop.selector';
+import { selectioCollectionsForPreview } from '../../redux/Shop/Shop.selector';
 import { IRootState } from '../../types';
 import CollectionPreview from '../CollectionPreview/CollectionPreview.component';
 import './CollectionsOverview.styles.scss';
