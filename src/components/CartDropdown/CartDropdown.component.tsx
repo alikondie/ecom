@@ -7,21 +7,25 @@ import { IRootState } from '../../types';
 import CartItem from '../CartItem/CartItem.component';
 
 import CustomButton from '../CustomButton/CustomButton.component';
-import './CartDropdown.styles.scss';
+import {
+  CartDropdownContainer,
+  CartItemsContainer,
+  EmptyMessageContainer,
+} from './CartDropdown.styles';
 
 const CartDropdown = () => {
   const cartItems = useSelector((state: IRootState) => selectCartItems(state));
   const dispatch = useDispatch();
   const history = useHistory();
   return (
-    <div className="cart-dropdown">
-      <div className="cart-items">
+    <CartDropdownContainer>
+      <CartItemsContainer>
         {cartItems.length ? (
           cartItems.map((item) => <CartItem key={item.id} item={item} />)
         ) : (
-          <span className="empty-message">Your cart is empty!</span>
+          <EmptyMessageContainer>Your cart is empty!</EmptyMessageContainer>
         )}
-      </div>
+      </CartItemsContainer>
       <CustomButton
         onClick={() => {
           history.push('/checkout');
@@ -30,7 +34,7 @@ const CartDropdown = () => {
       >
         GO TO CHECKOUT
       </CustomButton>
-    </div>
+    </CartDropdownContainer>
   );
 };
 

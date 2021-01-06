@@ -2,9 +2,15 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../redux/Cart/Cart.actions';
 import { IItem } from '../../types';
-import CustomButton from '../CustomButton/CustomButton.component';
 
-import './CollectionItem.styles.scss';
+import {
+  CollectionItemContainer,
+  CollectionItemFooter,
+  CollectionItemImage,
+  CollectionItemName,
+  CollectionItemPrice,
+  CollectionItemButton,
+} from './CollectionItem.styles';
 
 interface IProps {
   item: IItem;
@@ -16,22 +22,21 @@ const CollectionItem: React.FC<IProps> = ({ item }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="collection-item">
-      <div
-        className="image"
+    <CollectionItemContainer>
+      <CollectionItemImage
         style={{
           backgroundImage: `url(${imageUrl})`,
         }}
       />
-      <div className="collection-footer">
-        <span className="name">{name}</span>
-        <span className="price">{price}</span>
-      </div>
-      <CustomButton inverted onClick={() => dispatch(addItem(item))}>
+      <CollectionItemFooter className="collection-footer">
+        <CollectionItemName>{name}</CollectionItemName>
+        <CollectionItemPrice>{price}</CollectionItemPrice>
+      </CollectionItemFooter>
+      <CollectionItemButton inverted onClick={() => dispatch(addItem(item))}>
         {' '}
         Add to Cart
-      </CustomButton>
-    </div>
+      </CollectionItemButton>
+    </CollectionItemContainer>
   );
 };
 

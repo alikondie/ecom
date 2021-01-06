@@ -7,7 +7,13 @@ import {
 import { IRootState } from '../../types';
 import CheckoutItem from '../CheckoutItem/CheckoutItem.component';
 import StripeCheckoutButton from '../StripeButton/StripeButton.component';
-import './Checkout.styles.scss';
+import {
+  CheckoutHeader,
+  CheckoutPageContainer,
+  HeaderBlock,
+  TestWarning,
+  TotalPrice,
+} from './Checkout.styles';
 
 const CheckoutPage: React.FC = () => {
   const cartItems = useSelector((state: IRootState) => selectCartItems(state));
@@ -15,37 +21,37 @@ const CheckoutPage: React.FC = () => {
     selectCartTotalPrice(state)
   );
   return (
-    <div className="checkout-page">
-      <div className="checkout-header">
-        <div className="header-block">
+    <CheckoutPageContainer>
+      <CheckoutHeader>
+        <HeaderBlock>
           <span>Product</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Description</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Quantity</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Price</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Remove</span>
-        </div>
-      </div>
+        </HeaderBlock>
+      </CheckoutHeader>
       {cartItems.map((cartItem) => (
         <CheckoutItem cartItem={cartItem} key={cartItem.id} />
       ))}
-      <div className="total">
+      <TotalPrice>
         <span>TOTAL: {totalPrice}</span>
-      </div>
+      </TotalPrice>
       <StripeCheckoutButton price={totalPrice} />
-      <div className="test-warning">
+      <TestWarning>
         USE THE FOLLOWING TEST CREDIT CARD FOR PAYMENTS
         <br />
         4242 4242 4242 4242 EXPDATE- 01/22 - CVV: 123
-      </div>
-    </div>
+      </TestWarning>
+    </CheckoutPageContainer>
   );
 };
 

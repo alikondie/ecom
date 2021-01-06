@@ -1,10 +1,13 @@
 import React from 'react';
-import './CartIcon.styles.scss';
-import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCartHidden } from '../../redux/Cart/Cart.actions';
 import { IRootState } from '../../types';
 import { selectCartItemsCount } from '../../redux/Cart/Cart.selectors';
+import {
+  CartIconContainer,
+  ItemCountContainer,
+  ShoppingIcon,
+} from './CartIcon.styles';
 
 const CartIcon = () => {
   const dispatch = useDispatch();
@@ -17,10 +20,10 @@ const CartIcon = () => {
     dispatch(toggleCartHidden());
   };
   return (
-    <div className="cart-icon" onClick={() => toggleCart()}>
+    <CartIconContainer onClick={() => toggleCart()}>
       <ShoppingIcon className="shopping-icon" />
-      <span className="item-count">{itemCount}</span>
-    </div>
+      <ItemCountContainer>{itemCount}</ItemCountContainer>
+    </CartIconContainer>
   );
 };
 
