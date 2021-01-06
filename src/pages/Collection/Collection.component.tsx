@@ -4,6 +4,11 @@ import { useParams } from 'react-router-dom';
 import CollectionItem from '../../components/CollectionItem/CollectionItem.component';
 import { selectCollection } from '../../redux/Shop/Shop.selector';
 import { IItem, IRootState } from '../../types';
+import {
+  CollectionPageContainer,
+  CollectionPageItems,
+  CollectionPageTitle,
+} from './Collection.styles';
 import './Collection.styles.scss';
 
 interface IShopParams {
@@ -17,14 +22,14 @@ const CollectionPage: React.FC = () => {
   );
 
   return (
-    <div className="collection-page">
-      <h2 className="title">{collection?.title}</h2>
-      <div className="items">
+    <CollectionPageContainer>
+      <CollectionPageTitle>{collection?.title}</CollectionPageTitle>
+      <CollectionPageItems>
         {collection?.items.map((item: IItem) => (
           <CollectionItem key={item.id} item={item} />
         ))}
-      </div>
-    </div>
+      </CollectionPageItems>
+    </CollectionPageContainer>
   );
 };
 
