@@ -1,8 +1,12 @@
 import React from 'react';
 
-import './CollectionPreview.styles.scss';
 import { IItem } from '../../types';
 import CollectionItem from '../CollectionItem/CollectionItem.component';
+import {
+  CollectionPreviewContainer,
+  CollectionPreviewPreview,
+  CollectionPreviewTitle,
+} from './CollectionPreview.styles';
 
 interface IProps {
   title: string;
@@ -10,16 +14,16 @@ interface IProps {
 }
 
 const CollectionPreview: React.FC<IProps> = ({ title, items }) => (
-  <div className="collection-preview">
-    <h1>{title.toUpperCase()}</h1>
-    <div className="preview">
+  <CollectionPreviewContainer>
+    <CollectionPreviewTitle>{title.toUpperCase()}</CollectionPreviewTitle>
+    <CollectionPreviewPreview className="preview">
       {items
         .filter((item, index) => index < 4)
         .map((item) => (
           <CollectionItem key={item.id} item={item} />
         ))}
-    </div>
-  </div>
+    </CollectionPreviewPreview>
+  </CollectionPreviewContainer>
 );
 
 export default CollectionPreview;
