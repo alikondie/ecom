@@ -1,7 +1,7 @@
 import React, { ButtonHTMLAttributes } from 'react';
-import './CustomButton.styles.scss';
+import { CustomButtonContainer } from './CustomButton.styles';
 
-interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isGoogleSignIn?: boolean;
   inverted?: boolean;
 }
@@ -11,15 +11,6 @@ const CustomButton: React.FC<IProps> = ({
   isGoogleSignIn,
   inverted,
   ...props
-}) => (
-  <button
-    className={`${isGoogleSignIn ? 'google-sign-in' : ''} ${
-      inverted ? 'inverted' : ''
-    } custom-button`}
-    {...props}
-  >
-    {children}
-  </button>
-);
+}) => <CustomButtonContainer {...props}>{children}</CustomButtonContainer>;
 
 export default CustomButton;

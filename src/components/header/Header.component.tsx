@@ -9,6 +9,12 @@ import CartIcon from '../CartIcon/CartIcon.component';
 import CartDropdown from '../CartDropdown/CartDropdown.component';
 import { selectCurrentUser } from '../../redux/User/User.selector';
 import { selectCartHidden } from '../../redux/Cart/Cart.selectors';
+import {
+  HeaderContainer,
+  LogoContainer,
+  OptionLink,
+  OptionsContainer,
+} from './Header.styles';
 
 const Header: React.FC<IUser | undefined> = () => {
   const currentUser = useSelector((state: IRootState) =>
@@ -20,16 +26,15 @@ const Header: React.FC<IUser | undefined> = () => {
   );
 
   return (
-    <div className="header">
-      <Link to="/">
+    <HeaderContainer>
+      <LogoContainer to="/">
         <Logo />
-      </Link>
-      <div className="options">
-        <Link className="option" to="/shop">
-          SHOP
-        </Link>
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to="/shop">SHOP</OptionLink>
         {currentUser ? (
-          <div
+          <OptionLink
+            as="div"
             className="option"
             style={{ cursor: 'pointer' }}
             onClick={() => {
@@ -37,20 +42,18 @@ const Header: React.FC<IUser | undefined> = () => {
             }}
           >
             SIGN OUT
-          </div>
+          </OptionLink>
         ) : (
-          <Link className="option" to="/signin">
-            SIGNIN
-          </Link>
+          <OptionLink to="/signin">SIGNIN</OptionLink>
         )}
-        <Link className="option" to="/contact">
+        <OptionLink className="option" to="/contact">
           CONTACT
-        </Link>
+        </OptionLink>
 
         <CartIcon />
-      </div>
+      </OptionsContainer>
       {isCartHidden ? null : <CartDropdown />}
-    </div>
+    </HeaderContainer>
   );
 };
 
