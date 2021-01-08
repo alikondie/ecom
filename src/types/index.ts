@@ -17,6 +17,11 @@ export interface ICurrentUser {
   currentUser: IUser | null;
 }
 
+export interface IFirebaseCollection extends firebase.firestore.DocumentData {
+  title: string;
+  items: IItem[];
+}
+
 export interface ICart {
   hidden: boolean;
   cartItems: IItem[];
@@ -39,14 +44,16 @@ export interface IDirectory {
 }
 
 export interface ICollection {
-  id: number;
+  id: string;
   title: string;
   routeName: string;
   items: IItem[];
 }
 
 export interface IShop {
-  collections: ICollectionData;
+  collections: ICollectionData | {};
+  error?: string | null;
+  isLoading: boolean;
 }
 
 export type TAction =
@@ -54,7 +61,10 @@ export type TAction =
   | { type: 'TOGGLE_CART_HIDDEN'; payload: ICart }
   | { type: 'ADD_ITEM'; payload: IItem }
   | { type: 'CLEAR_ITEM'; payload: IItem }
-  | { type: 'REMOVE_ITEM'; payload: IItem };
+  | { type: 'REMOVE_ITEM'; payload: IItem }
+  | { type: 'UPDATE_COLLECTIONS_SUCCESS'; payload: IShop }
+  | { type: 'UPDATE_COLLECTIONS_ERROR'; payload: string }
+  | { type: 'UPDATE_COLLECTIONS_REQUEST' };
 
 export type TDispatch = (action: TAction) => void;
 

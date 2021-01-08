@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Header.styles.scss';
 import { Logo } from '../../assets/svgs';
 import { auth } from '../../firebase/firebase.utils';

@@ -1,8 +1,8 @@
-import { ICollection, ICollectionData } from '../../types';
+import { ICollectionData } from '../../types';
 
 const SHOP_DATA: ICollectionData = {
   hats: {
-    id: 1,
+    id: '1',
     title: 'Hats',
     routeName: 'hats',
     items: [
@@ -63,7 +63,7 @@ const SHOP_DATA: ICollectionData = {
     ],
   },
   sneakers: {
-    id: 2,
+    id: '2',
     title: 'Sneakers',
     routeName: 'sneakers',
     items: [
@@ -118,7 +118,7 @@ const SHOP_DATA: ICollectionData = {
     ],
   },
   jackets: {
-    id: 3,
+    id: '3',
     title: 'Jackets',
     routeName: 'jackets',
     items: [
@@ -155,7 +155,7 @@ const SHOP_DATA: ICollectionData = {
     ],
   },
   womens: {
-    id: 4,
+    id: '4',
     title: 'Womens',
     routeName: 'womens',
     items: [
@@ -204,7 +204,7 @@ const SHOP_DATA: ICollectionData = {
     ],
   },
   mens: {
-    id: 5,
+    id: '5',
     title: 'Mens',
     routeName: 'mens',
     items: [

@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import { ICollection, ICollectionData, IFirebaseCollection } from '../types';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -37,6 +38,70 @@ export const createUserProfileDocument = async (
   }
 
   return userRef;
+};
+
+export const addCollectionAndDocuments = async (
+  collectionKey: string,
+  objectsToAdd: IFirebaseCollection[]
+) => {
+  const collectionRef = firestore.collection(collectionKey);
+  const batch = firestore.batch();
+  objectsToAdd.forEach((collection: IFirebaseCollection) => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, collection);
+  });
+
+  return await batch.commit();
+};
+
+export const collectionConverter = {
+  toFirestore(
+    collection: IFirebaseCollection
+  ): firebase.firestore.DocumentData {
+    return { title: collection.title, items: collection.items };
+  },
+
+  fromFirestore(
+    snapshot: firebase.firestore.QueryDocumentSnapshot,
+    options: firebase.firestore.SnapshotOptions
+  ): IFirebaseCollection {
+    const data = snapshot.data(options)!;
+    return { title: data.title, items: data.items };
+  },
+};
+
+export const convertCollectionsSnapshotToMap = (
+  collections: firebase.firestore.QuerySnapshot<IFirebaseCollection>
+) => {
+  const transformedCollections = collections.docs.map(
+    (doc): ICollection => {
+      const { title, items } = doc.data();
+
+      return {
+        routeName: encodeURI(title.toLowerCase()),
+        id: doc.id,
+        title,
+        items,
+      };
+    }
+  );
+
+  return transformedCollections.reduce(
+    (accumulator: ICollectionData, collection) => {
+      accumulator[collection.title.toLowerCase()] = collection;
+      return accumulator;
+    },
+    {}
+  );
+};
+
+export const mapCollections = async () => {
+  const collectionRef = await firestore
+    .collection('collections')
+    .withConverter(collectionConverter)
+    .get();
+  const collectionsMap = convertCollectionsSnapshotToMap(collectionRef);
+  return collectionsMap;
 };
 
 firebase.initializeApp(config);
