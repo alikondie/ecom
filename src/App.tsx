@@ -6,22 +6,14 @@ import HomePage from './pages/Homepage/Homepage.component';
 import ShopPage from './pages/Shop/shop.component';
 import SignInSignup from './pages/SignInSingup/SignInSingup.component';
 import Header from './components/Header/Header.component';
-import {
-  auth,
-  createUserProfileDocument,
-  addCollectionAndDocuments,
-} from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { useEffect } from 'react';
 import { setCurrentUser } from './redux/User/User.actions';
 import { IRootState } from './types';
 import CheckoutPage from './components/Checkout/Checkout.component';
-import { selectioCollectionsForPreview } from './redux/Shop/Shop.selector';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const collectionsArray = useSelector((state: IRootState) =>
-    selectioCollectionsForPreview(state)
-  );
   const currentUser = useSelector((state: IRootState) => setCurrentUser(state));
   useEffect(() => {
     let unsubscribeFromAuth: () => void;
