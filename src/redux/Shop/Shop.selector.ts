@@ -9,16 +9,15 @@ export const selectCollections = createSelector(
   (shop: IShop) => shop.collections
 );
 
-export const selectioCollectionsForPreview = createSelector(
+export const selectCollectionsForPreview = createSelector(
   [selectCollections],
   (collections: ICollectionData) =>
-    Object.keys(collections).map((key) => collections[key])
+    collections ? Object.keys(collections).map((key) => collections[key]) : []
 );
 
 export const selectCollection = memoize(
   (collectionUrlId: keyof ICollectionData) =>
-    createSelector(
-      [selectCollections],
-      (collections: ICollectionData) => collections[collectionUrlId]
+    createSelector([selectCollections], (collections: ICollectionData) =>
+      collections ? collections[collectionUrlId] : null
     )
 );
