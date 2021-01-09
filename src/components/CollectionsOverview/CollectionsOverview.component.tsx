@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectioCollectionsForPreview } from '../../redux/Shop/Shop.selector';
+import { selectCollectionsForPreview } from '../../redux/Shop/Shop.selector';
 import { IRootState } from '../../types';
 import CollectionPreview from '../CollectionPreview/CollectionPreview.component';
 import { CollectionsOverviewContainer } from './CollectionOverview.styles';
 
 const CollectionsOverview = () => {
   const collections = useSelector((state: IRootState) =>
-    selectioCollectionsForPreview(state)
+    selectCollectionsForPreview(state)
   );
   return (
     <CollectionsOverviewContainer>
