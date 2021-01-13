@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, RouteComponentProps } from 'react-router-dom';
 import CollectionsOverview from '../../components/CollectionsOverview/CollectionsOverview.component';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner.component';
-import { updateCollections } from '../../redux/Shop/shops.actions';
+import { updateCollectionsRequest } from '../../redux/Shop/shops.actions';
 import { IRootState } from '../../types';
 import CollectionPage from '../Collection/Collection.component';
 
 const ShopPage: React.FC<RouteComponentProps> = ({ match }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(updateCollections());
+    dispatch(updateCollectionsRequest());
   }, []);
 
   const shop = useSelector((state: IRootState) => state.shop);
