@@ -1,5 +1,5 @@
 import { takeLatest, put as dispatch, all, call } from 'redux-saga/effects';
-import {
+import firebase, {
   auth,
   createUserProfileDocument,
   googleProvider,
@@ -8,16 +8,33 @@ import { IEmailAndPassword } from '../../types';
 import { EMAIL_SIGNIN_REQUEST, GOOGLE_SIGNIN_REQUEST } from '../Constants';
 import { signInError, signInSuccess } from './User.actions';
 
-export function* signInWithGoogle() {
+export function* getSnapshotFromUserAuth(
+  userCred: firebase.auth.UserCredential
+) {
   try {
-    const { user } = yield auth.signInWithPopup(googleProvider);
-    const userRef = yield createUserProfileDocument(user, undefined);
+    const { user } = userCred;
+    const userRef = yield createUserProfileDocument(user!, undefined);
     const userSnapshot = yield userRef.get();
     yield dispatch(
       signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
     );
   } catch (error) {
-    yield dispatch(signInError(error.toString()));
+    if (error.message && typeof error.message === 'string') {
+      yield dispatch(signInError(error.message));
+    } else yield dispatch(signInError('Error signing in'));
+  }
+}
+
+export function* signInWithGoogle() {
+  try {
+    const userCred: firebase.auth.UserCredential = yield auth.signInWithPopup(
+      googleProvider
+    );
+    yield getSnapshotFromUserAuth(userCred);
+  } catch (error) {
+    if (error.message && typeof error.message === 'string') {
+      yield dispatch(signInError(error.message));
+    } else yield dispatch(signInError('Error signing in'));
   }
 }
 
@@ -30,12 +47,11 @@ export function* signInWithEmailAndPassword({
 }: TSigninWithEmailParams) {
   try {
     const { email, password } = payload;
-    const { user } = yield auth.signInWithEmailAndPassword(email, password);
-    const userRef = yield createUserProfileDocument(user, undefined);
-    const userSnapshot = yield userRef.get();
-    yield dispatch(
-      signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
+    const userCred: firebase.auth.UserCredential = yield auth.signInWithEmailAndPassword(
+      email,
+      password
     );
+    yield getSnapshotFromUserAuth(userCred);
   } catch (error) {
     if (error.message && typeof error.message === 'string') {
       yield dispatch(signInError(error.message));
