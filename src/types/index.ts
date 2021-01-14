@@ -13,8 +13,14 @@ export interface IUser extends firebase.firestore.DocumentData {
   id?: string;
 }
 
+export interface IEmailAndPassword {
+  email: string;
+  password: string;
+}
+
 export interface ICurrentUser {
   currentUser: IUser | null;
+  error?: string | null;
 }
 
 export interface IFirebaseCollection extends firebase.firestore.DocumentData {
@@ -64,7 +70,11 @@ export type TAction =
   | { type: 'REMOVE_ITEM'; payload: IItem }
   | { type: 'UPDATE_COLLECTIONS_SUCCESS'; payload: IShop }
   | { type: 'UPDATE_COLLECTIONS_ERROR'; payload: string }
-  | { type: 'UPDATE_COLLECTIONS_REQUEST' };
+  | { type: 'UPDATE_COLLECTIONS_REQUEST' }
+  | { type: 'GOOGLE_SIGNIN_REQUEST' }
+  | { type: 'EMAIL_SIGNIN_REQUEST'; payload: IEmailAndPassword }
+  | { type: 'SIGNIN_SUCCESS'; payload: ICurrentUser }
+  | { type: 'SIGNIN_ERROR'; payload: string };
 
 export type TDispatch = (action: TAction) => void;
 

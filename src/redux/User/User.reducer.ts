@@ -2,15 +2,19 @@ import { ICurrentUser, TAction } from '../../types';
 import * as constants from '../Constants';
 const initialState: ICurrentUser = {
   currentUser: null,
+  error: null,
 };
 
 const userReducer = (state = initialState, action: TAction): ICurrentUser => {
   switch (action.type) {
-    case constants.SET_CURRENT_USER:
+    case constants.SIGNIN_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
+        error: null,
       };
+    case constants.SIGNIN_ERROR:
+      return { ...state, error: action.payload };
 
     default:
       return state;
