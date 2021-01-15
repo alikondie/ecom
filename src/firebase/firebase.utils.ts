@@ -104,6 +104,15 @@ export const mapCollections = async () => {
   return collectionsMap;
 };
 
+export const getCurrentUser = () => {
+  return new Promise<firebase.User | null>((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      unsubscribe();
+      resolve(user);
+    }, reject);
+  });
+};
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();

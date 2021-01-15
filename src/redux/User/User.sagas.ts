@@ -2,17 +2,34 @@ import { takeLatest, put as dispatch, all, call } from 'redux-saga/effects';
 import firebase, {
   auth,
   createUserProfileDocument,
+  getCurrentUser,
   googleProvider,
 } from '../../firebase/firebase.utils';
 import { IEmailAndPassword } from '../../types';
-import { EMAIL_SIGNIN_REQUEST, GOOGLE_SIGNIN_REQUEST } from '../Constants';
-import { signInError, signInSuccess } from './User.actions';
+import {
+  CHECK_USER_SESSION,
+  EMAIL_SIGNIN_REQUEST,
+  GOOGLE_SIGNIN_REQUEST,
+  SIGN_OUT_REQUEST,
+} from '../Constants';
+import {
+  signInError,
+  signInSuccess,
+  signOutError,
+  signOutSuccess,
+} from './User.actions';
+
+type TSigninWithEmailParams = {
+  type: string;
+  payload: IEmailAndPassword;
+};
 
 export function* getSnapshotFromUserAuth(
   userCred: firebase.auth.UserCredential
 ) {
   try {
     const { user } = userCred;
+    // console.log('user', userCred);
     const userRef = yield createUserProfileDocument(user!, undefined);
     const userSnapshot = yield userRef.get();
     yield dispatch(
@@ -38,10 +55,6 @@ export function* signInWithGoogle() {
   }
 }
 
-export function* onGoogleSinginRequest() {
-  yield takeLatest(GOOGLE_SIGNIN_REQUEST, signInWithGoogle);
-}
-
 export function* signInWithEmailAndPassword({
   payload,
 }: TSigninWithEmailParams) {
@@ -59,15 +72,54 @@ export function* signInWithEmailAndPassword({
   }
 }
 
-type TSigninWithEmailParams = {
-  type: string;
-  payload: IEmailAndPassword;
-};
+export function* isUserAuthenticated() {
+  try {
+    const user: firebase.User = yield getCurrentUser();
+    if (!user) return;
+    const userRef = yield createUserProfileDocument(user, undefined);
+    const userSnapshot = yield userRef.get();
+    yield dispatch(
+      signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
+    );
+  } catch (error) {
+    if (error.message && typeof error.message === 'string') {
+      yield dispatch(signInError(error.message));
+    } else yield dispatch(signInError('Error signing in'));
+  }
+}
+
+export function* onGoogleSinginRequest() {
+  yield takeLatest(GOOGLE_SIGNIN_REQUEST, signInWithGoogle);
+}
 
 export function* onEmailSignInRequest() {
   yield takeLatest(EMAIL_SIGNIN_REQUEST, signInWithEmailAndPassword);
 }
 
+export function* onCheckUserSession() {
+  yield takeLatest(CHECK_USER_SESSION, isUserAuthenticated);
+}
+
+export function* signOut() {
+  try {
+    yield auth.signOut();
+    yield dispatch(signOutSuccess());
+  } catch (error) {
+    if (error.message && typeof error.message === 'string') {
+      yield dispatch(signOutError(error.message));
+    } else yield dispatch(signOutError('Error signing out'));
+  }
+}
+
+export function* onSignoutRequest() {
+  yield takeLatest(SIGN_OUT_REQUEST, signOut);
+}
+
 export function* userSagas() {
-  yield all([call(onGoogleSinginRequest), call(onEmailSignInRequest)]);
+  yield all([
+    call(onGoogleSinginRequest),
+    call(onEmailSignInRequest),
+    call(onCheckUserSession),
+    call(onSignoutRequest),
+  ]);
 }

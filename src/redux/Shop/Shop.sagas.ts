@@ -18,6 +18,6 @@ export function* updateCollectionAsync() {
   }
 }
 
-export function* updateCollectionStart() {
+export function* updateCollectionRequest() {
   yield takeLatest(UPDATE_COLLECTIONS_REQUEST, updateCollectionAsync);
 }

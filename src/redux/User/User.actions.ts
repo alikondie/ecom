@@ -25,3 +25,20 @@ export const signInError = (error: string): TAction => ({
   type: constants.SIGNIN_ERROR,
   payload: error,
 });
+
+export const checkUserSession = (): TAction => ({
+  type: constants.CHECK_USER_SESSION,
+});
+
+export const signOutRequest = (): TAction => ({
+  type: constants.SIGN_OUT_REQUEST,
+});
+
+export const signOutSuccess = (): TAction => ({
+  type: constants.SIGN_OUT_SUCCESS,
+});
+
+export const signOutError = (error: string): TAction => ({
+  type: constants.SIGN_OUT_ERROR,
+  payload: error,
+});

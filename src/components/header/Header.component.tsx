@@ -3,7 +3,7 @@ import './Header.styles.scss';
 import { Logo } from '../../assets/svgs';
 import { auth } from '../../firebase/firebase.utils';
 import { IRootState, IUser } from '../../types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CartIcon from '../CartIcon/CartIcon.component';
 import CartDropdown from '../CartDropdown/CartDropdown.component';
 import { selectCurrentUser } from '../../redux/User/User.selector';
@@ -14,12 +14,13 @@ import {
   OptionLink,
   OptionsContainer,
 } from './Header.styles';
+import { signOutRequest } from '../../redux/User/User.actions';
 
 const Header: React.FC<IUser | undefined> = () => {
   const currentUser = useSelector((state: IRootState) =>
     selectCurrentUser(state)
   );
-
+  const dispatch = useDispatch();
   const isCartHidden = useSelector((state: IRootState) =>
     selectCartHidden(state)
   );
@@ -37,7 +38,7 @@ const Header: React.FC<IUser | undefined> = () => {
             className="option"
             style={{ cursor: 'pointer' }}
             onClick={() => {
-              return auth.signOut();
+              dispatch(signOutRequest());
             }}
           >
             SIGN OUT

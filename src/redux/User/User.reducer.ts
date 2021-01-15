@@ -14,8 +14,10 @@ const userReducer = (state = initialState, action: TAction): ICurrentUser => {
         error: null,
       };
     case constants.SIGNIN_ERROR:
+    case constants.SIGN_OUT_ERROR:
       return { ...state, error: action.payload };
-
+    case constants.SIGN_OUT_SUCCESS:
+      return { ...state, currentUser: null, error: null };
     default:
       return state;
   }

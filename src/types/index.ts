@@ -74,7 +74,11 @@ export type TAction =
   | { type: 'GOOGLE_SIGNIN_REQUEST' }
   | { type: 'EMAIL_SIGNIN_REQUEST'; payload: IEmailAndPassword }
   | { type: 'SIGNIN_SUCCESS'; payload: ICurrentUser }
-  | { type: 'SIGNIN_ERROR'; payload: string };
+  | { type: 'SIGNIN_ERROR'; payload: string }
+  | { type: 'CHECK_USER_SESSION' }
+  | { type: 'SIGN_OUT_REQUEST' }
+  | { type: 'SIGN_OUT_SUCCESS' }
+  | { type: 'SIGN_OUT_ERROR'; payload: string };
 
 export type TDispatch = (action: TAction) => void;
 
