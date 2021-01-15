@@ -1,6 +1,5 @@
-import { Collection } from 'typescript';
 import firebase from '../firebase/firebase.utils';
-import { SET_CURRENT_USER } from '../redux/Constants';
+
 export interface IItem {
   id: number;
   name: string;
