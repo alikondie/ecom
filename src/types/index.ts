@@ -56,6 +56,12 @@ export interface ICollection {
   items: IItem[];
 }
 
+export interface ISignupForm {
+  email: string;
+  password: string;
+  displayName: string;
+}
+
 export interface IShop {
   collections: ICollectionData | {};
   error?: string | null;
@@ -76,6 +82,9 @@ export type TAction =
   | { type: 'EMAIL_SIGNIN_REQUEST'; payload: IEmailAndPassword }
   | { type: 'SIGNIN_SUCCESS'; payload: ICurrentUser }
   | { type: 'SIGNIN_ERROR'; payload: string }
+  | { type: 'SIGNUP_REQUEST'; payload: ISignupForm }
+  | { type: 'SIGNUP_SUCCESS' }
+  | { type: 'SIGNUP_ERROR'; payload: string }
   | { type: 'CHECK_USER_SESSION' }
   | { type: 'SIGN_OUT_REQUEST' }
   | { type: 'SIGN_OUT_SUCCESS' }

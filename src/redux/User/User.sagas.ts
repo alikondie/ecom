@@ -5,23 +5,32 @@ import firebase, {
   getCurrentUser,
   googleProvider,
 } from '../../firebase/firebase.utils';
-import { IEmailAndPassword } from '../../types';
+import { IEmailAndPassword, ISignupForm } from '../../types';
 import {
   CHECK_USER_SESSION,
   EMAIL_SIGNIN_REQUEST,
   GOOGLE_SIGNIN_REQUEST,
+  SIGNUP_REQUEST,
   SIGN_OUT_REQUEST,
 } from '../Constants';
 import {
+  emailSignInRequest,
   signInError,
   signInSuccess,
   signOutError,
   signOutSuccess,
+  signUpError,
+  signUpSuccess,
 } from './User.actions';
 
 type TSigninWithEmailParams = {
   type: string;
   payload: IEmailAndPassword;
+};
+
+type TSignUpParams = {
+  type: string;
+  payload: ISignupForm;
 };
 
 export function* getSnapshotFromUserAuth(
@@ -115,11 +124,35 @@ export function* onSignoutRequest() {
   yield takeLatest(SIGN_OUT_REQUEST, signOut);
 }
 
+export function* signUp({
+  payload: { email, password, displayName },
+}: TSignUpParams) {
+  try {
+    const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+    if (user) {
+      yield createUserProfileDocument(user, {
+        displayName: displayName,
+      });
+      yield dispatch(signUpSuccess());
+      yield dispatch(emailSignInRequest({ email, password }));
+    }
+  } catch (error) {
+    if (error.message && typeof error.message === 'string') {
+      yield dispatch(signUpError(error.message));
+    } else yield dispatch(signUpError('Error signing out'));
+  }
+}
+
+export function* onSignupRequest() {
+  yield takeLatest(SIGNUP_REQUEST, signUp);
+}
+
 export function* userSagas() {
   yield all([
     call(onGoogleSinginRequest),
     call(onEmailSignInRequest),
     call(onCheckUserSession),
     call(onSignoutRequest),
+    call(onSignupRequest),
   ]);
 }

@@ -1,4 +1,9 @@
-import { ICurrentUser, IEmailAndPassword, TAction } from '../../types';
+import {
+  ICurrentUser,
+  IEmailAndPassword,
+  ISignupForm,
+  TAction,
+} from '../../types';
 import * as constants from '../Constants';
 export const setCurrentUser = (user: any): TAction => ({
   type: constants.SET_CURRENT_USER,
@@ -40,5 +45,19 @@ export const signOutSuccess = (): TAction => ({
 
 export const signOutError = (error: string): TAction => ({
   type: constants.SIGN_OUT_ERROR,
+  payload: error,
+});
+
+export const signUpRequest = (user: ISignupForm): TAction => ({
+  type: constants.SIGNUP_REQUEST,
+  payload: user,
+});
+
+export const signUpSuccess = (): TAction => ({
+  type: constants.SIGNUP_SUCCESS,
+});
+
+export const signUpError = (error: string): TAction => ({
+  type: constants.SIGNUP_ERROR,
   payload: error,
 });
