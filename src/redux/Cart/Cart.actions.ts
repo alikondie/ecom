@@ -1,6 +1,7 @@
 import { IItem, TAction } from '../../types';
 import {
   ADD_ITEM,
+  CLEAR_CART,
   CLEAR_ITEM,
   REMOVE_ITEM,
   TOGGLE_CART_HIDDEN,
@@ -23,4 +24,8 @@ export const clearItem = (item: IItem): TAction => ({
 export const removeItem = (item: IItem): TAction => ({
   type: REMOVE_ITEM,
   payload: item,
+});
+
+export const clearCart = (): TAction => ({
+  type: CLEAR_CART,
 });

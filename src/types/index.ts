@@ -65,6 +65,7 @@ export interface IShop {
 export type TAction =
   | { type: 'SET_CURRENT_USER'; payload: ICurrentUser }
   | { type: 'TOGGLE_CART_HIDDEN'; payload: ICart }
+  | { type: 'CLEAR_CART' }
   | { type: 'ADD_ITEM'; payload: IItem }
   | { type: 'CLEAR_ITEM'; payload: IItem }
   | { type: 'REMOVE_ITEM'; payload: IItem }

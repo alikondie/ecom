@@ -1,6 +1,7 @@
 import { ICart, IItem, TAction } from '../../types';
 import {
   ADD_ITEM,
+  CLEAR_CART,
   CLEAR_ITEM,
   REMOVE_ITEM,
   TOGGLE_CART_HIDDEN,
@@ -35,6 +36,12 @@ const cartReducer = (state = initialState, action: TAction): ICart => {
       return {
         ...state,
         cartItems: removeItemFromCart(state.cartItems, action.payload),
+      };
+
+    case CLEAR_CART:
+      return {
+        ...state,
+        cartItems: [],
       };
     default:
       return state;

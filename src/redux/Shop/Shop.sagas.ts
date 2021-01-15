@@ -1,4 +1,4 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
+import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { UPDATE_COLLECTIONS_REQUEST } from '../Constants';
 import { mapCollections } from '../../firebase/firebase.utils';
 import {
@@ -20,4 +20,8 @@ export function* updateCollectionAsync() {
 
 export function* updateCollectionRequest() {
   yield takeLatest(UPDATE_COLLECTIONS_REQUEST, updateCollectionAsync);
+}
+
+export function* shopSagas() {
+  yield all([call(updateCollectionRequest)]);
 }
