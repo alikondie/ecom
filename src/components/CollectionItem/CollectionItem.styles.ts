@@ -33,6 +33,13 @@ export const CollectionItemButton = styled(CustomButton)`
   top: 255px;
   display: none;
   z-index: 1;
+  @media screen and (max-width: 800px) {
+    display: block;
+    opacity: 0.9;
+    top: 120px;
+    min-width: unset;
+    padding: 0 10px 0 10px;
+  }
 `;
 
 export const CollectionItemContainer = styled.div`
@@ -50,6 +57,20 @@ export const CollectionItemContainer = styled.div`
     ${CollectionItemButton} {
       opacity: 0.85;
       display: flex;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    height: 200px;
+    width: 40vw;
+
+    &:hover {
+      ${CollectionItemImage} {
+        opacity: unset;
+      }
+      ${CollectionItemButton} {
+        opacity: unset;
+      }
     }
   }
 `;

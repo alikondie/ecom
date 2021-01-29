@@ -20,7 +20,7 @@ export const MenuItemContent = styled.div`
   position: absolute;
 `;
 
-export const MenuItemContentTitle = styled.h1`
+export const MenuItemContentTitle = styled.span`
   font-weight: bold;
   margin-bottom: 6px;
   font-size: 22px;
@@ -58,6 +58,10 @@ export const MenuItemContainer = styled.div`
 
   &.large {
     height: 380px;
+    @media screen and (max-width: 800px) {
+      height: 200px;
+      width: 120px;
+    }
   }
 
   &:first-child {
@@ -66,5 +70,9 @@ export const MenuItemContainer = styled.div`
 
   &:last-child {
     margin-left: 7.5px;
+  }
+  @media screen and (max-width: 800px) {
+    height: 200px;
+    width: 120px;
   }
 `;

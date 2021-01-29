@@ -11,7 +11,7 @@ const ShopPage: React.FC<RouteComponentProps> = ({ match }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(updateCollectionsRequest());
-  }, []);
+  }, [dispatch]);
 
   const shop = useSelector((state: IRootState) => state.shop);
 

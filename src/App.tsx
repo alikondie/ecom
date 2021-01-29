@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import './App.css';
 import HomePage from './pages/Homepage/Homepage.component';
 import ShopPage from './pages/Shop/shop.component';
 import SignInSignup from './pages/SignInSingup/SignInSingup.component';
@@ -10,7 +9,7 @@ import { IRootState } from './types';
 import CheckoutPage from './components/Checkout/Checkout.component';
 import { useEffect } from 'react';
 import { checkUserSession } from './redux/User/User.actions';
-
+import { GlobalStyle } from './global.styles';
 const App: React.FC = () => {
   const currentUser = useSelector(
     (state: IRootState) => state.user.currentUser
@@ -21,6 +20,7 @@ const App: React.FC = () => {
   }, []);
   return (
     <div className="App">
+      <GlobalStyle />
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />

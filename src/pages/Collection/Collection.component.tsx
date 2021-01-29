@@ -9,7 +9,6 @@ import {
   CollectionPageItems,
   CollectionPageTitle,
 } from './Collection.styles';
-import './Collection.styles.scss';
 
 interface IShopParams {
   collectionId: string;

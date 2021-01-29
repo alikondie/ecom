@@ -1,5 +1,5 @@
 import React from 'react';
-import './Header.styles.scss';
+
 import { Logo } from '../../assets/svgs';
 import { auth } from '../../firebase/firebase.utils';
 import { IRootState, IUser } from '../../types';
